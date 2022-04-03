@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Platform45.MarsRoverChallenge.Exceptions;
+using Platform45.MarsRoverChallenge.Models;
 
 namespace Platform45.MarsRoverChallenge
 {

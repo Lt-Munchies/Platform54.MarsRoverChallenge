@@ -1,4 +1,4 @@
-﻿namespace Platform45.MarsRoverChallenge
+﻿namespace Platform45.MarsRoverChallenge.Models
 {
     public struct RoverPosition
     {
