@@ -49,4 +49,9 @@ Expected Output:
 2. Once a rover has reached its final destination it stays there for the duration of the mission until restart
 3. When a rover is directed into the path of a stationary rover it simply ignores the instruction and attempts to continue with the rest of the instructions
 4. When a rover attempts to land on an occupied space on the plateau (because of a stationary rover) it will fail to land gracefully and crash
+5. Instructions will be sent in 1 line at a time
+6. 1 line will contain the full set of instructions meant for that line and not partial instructions
+7. Lines of instructions will always be ordered and come in the correct order namely 1. Rover Position 2. Instructions to move respectively
+
+
 
