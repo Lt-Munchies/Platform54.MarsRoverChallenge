@@ -45,3 +45,8 @@ Expected Output:
 ```
 
 ### Assumptions:
+1. Reaching the edge of the plateau only prohibits movement of the rover and does not cause a rover to fall off the plateau
+2. Once a rover has reached its final destination it stays there for the duration of the mission until restart
+3. When a rover is directed into the path of a stationary rover it simply ignores the instruction and attempts to continue with the rest of the instructions
+4. When a rover attempts to land on an occupied space on the plateau (because of a stationary rover) it will fail to land gracefully and crash
+
