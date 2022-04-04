@@ -93,7 +93,7 @@ namespace Platform45.MarsRoverChallenge.Rover
 
                 _roverPosition = new RoverPosition(xCoordinate, yCoordinate, heading);
             }
-            catch (RoverLandingCoorindateInvalidException e)
+            catch (Exception e)
             {
                 return e.Message;
             }

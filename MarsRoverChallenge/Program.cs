@@ -64,7 +64,6 @@ namespace Platform45.MarsRoverChallenge
                             Console.ReadLine();
                             continue;
                         }
-
                         
                         break;
                     }
