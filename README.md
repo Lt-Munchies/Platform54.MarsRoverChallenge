@@ -52,6 +52,6 @@ Expected Output:
 5. Instructions will be sent in 1 line at a time
 6. 1 line will contain the full set of instructions meant for that line and not partial instructions
 7. Lines of instructions will always be ordered and come in the correct order namely 1. Rover Position 2. Instructions to move respectively
-
+8. Nasa can send communication to the rover after it has landed and has not pre-programmed the rover with the set of instructions
 
 

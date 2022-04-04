@@ -11,10 +11,10 @@ namespace Platform45.MarsRoverChallenge
 
         private readonly Plateau _plateau;
         private RoverPosition _roverPosition;
-        private bool _hasLandingInstruction;
-        private bool _hasMoved;
 
         #endregion
+
+        public bool HasLanded { get; private set; }
 
         #region Constructor
 
@@ -45,23 +45,15 @@ namespace Platform45.MarsRoverChallenge
 
             return Convert.ToChar(heading.ToUpper());
         }
-
-        public string FeedInstruction(string instructions)
-        {
-            if (_hasLandingInstruction is false)
-                return SetRoverLandingPosition(instructions);
-
-            return _hasMoved is false ? InterpretRoverMoveInstructions(instructions) : string.Empty;
-        }
-
-        private string InterpretRoverMoveInstructions(string rawInstructions)
+        
+        public string InterpretRoverMoveInstructions(string rawInstructions)
         {
             var instructions = rawInstructions.ToUpper().ToCharArray();
 
             var validCharacters = new[] {'L', 'R', 'M'};
 
             if (instructions.Any(p => char.IsNumber(p) || validCharacters.Contains(p) is false))
-                return "Invalid instructions. Instructions may only contain the following: [L, R, M]";
+                return "Invalid instructions. Moving instructions may only contain the following: [L, R, M]";
 
             foreach (var instruction in instructions)
             {
@@ -75,11 +67,10 @@ namespace Platform45.MarsRoverChallenge
                 }
             }
 
-            _hasMoved = true;
             return string.Empty;
         }
 
-        private string SetRoverLandingPosition(string instruction)
+        public string SetRoverLandingPosition(string instruction)
         {
             var instructions = instruction.Split(' ');
             if (instructions.Length != 3)
@@ -103,7 +94,7 @@ namespace Platform45.MarsRoverChallenge
                 return e.Message;
             }
 
-            _hasLandingInstruction = true;
+            HasLanded = true;
             return string.Empty;
         }
 

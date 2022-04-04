@@ -11,8 +11,8 @@ namespace Platform45.MarsRoverChallenge
     {
         #region Fields
 
-        public int ThresholdX { get; }
-        public int ThresholdY { get; }
+        public int ThresholdX { get; private set; }
+        public int ThresholdY { get; private set; }
 
         private readonly List<RoverPosition> _stationaryRoverPositions;
 
@@ -23,16 +23,18 @@ namespace Platform45.MarsRoverChallenge
         /// <summary>
         /// Initializes a Plateau with an X and Y coordinate representing the width and length of the plateau
         /// </summary>
-        /// <param name="thresholdX">Max grid width represented as x coordinate</param>
-        /// <param name="thresholdY">Max grid length represented as y coordinate</param>
-        public Plateau(string thresholdX, string thresholdY)
+        public Plateau()
         {
-            ThresholdX = ValidatePlateauCoordinate(thresholdX);
-            ThresholdY = ValidatePlateauCoordinate(thresholdY);
             _stationaryRoverPositions = new List<RoverPosition>();
         }
 
         #endregion
+
+        public void SetPlateauSize(string thresholdX, string thresholdY)
+        {
+            ThresholdX = ValidatePlateauCoordinate(thresholdX);
+            ThresholdY = ValidatePlateauCoordinate(thresholdY);
+        }
 
         public void AddRoverPosition(RoverPosition roverPosition)
         {

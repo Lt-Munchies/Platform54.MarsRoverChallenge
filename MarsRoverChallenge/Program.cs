@@ -30,7 +30,8 @@ namespace Platform45.MarsRoverChallenge
                         Console.WriteLine("Y Threshold: ");
                         var yThreshold = Console.ReadLine();
 
-                        _plateau = new Plateau(xThreshold, yThreshold);
+                        _plateau = new Plateau();
+                        _plateau.SetPlateauSize(xThreshold, yThreshold);
                     }
                     catch (PlateauInitializationException e)
                     {
@@ -47,27 +48,45 @@ namespace Platform45.MarsRoverChallenge
                 while (true)
                 {
                     var rover = new Rover(_plateau);
-                    var lineNumber = 1;
-                    while (lineNumber < 3)
+
+                    while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine($"Please enter line [{lineNumber}] of instructions");
-                        var landingInput = Console.ReadLine();
+                        Console.WriteLine("Please enter line of rover landing instructions");
+                        var landingInstruction = Console.ReadLine();
 
-                        if (string.IsNullOrWhiteSpace(landingInput))
-                            continue;
+                        var landingInstructionFeedback = rover.SetRoverLandingPosition(landingInstruction);
 
-                        var feedback = rover.FeedInstruction(landingInput);
-
-                        if (string.IsNullOrWhiteSpace(feedback) is false)
+                        if (string.IsNullOrWhiteSpace(landingInstructionFeedback) is false)
                         {
-                            Console.WriteLine(feedback);
-                            Console.WriteLine("Press 'ENTER' to try again");
+                            Console.WriteLine(landingInstructionFeedback);
+                            Console.WriteLine("Press 'Enter' to try again");
+                            Console.ReadLine();
+                            continue;
+                        }
+
+                        
+                        break;
+                    }
+                    
+                    while (true)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Landing instructions received. Rover has landed");
+                        Console.WriteLine("Please enter line of rover moving instructions");
+                        var movingInstruction = Console.ReadLine();
+
+                        var moveInstructionsFeedback = rover.InterpretRoverMoveInstructions(movingInstruction);
+
+                        if (string.IsNullOrWhiteSpace(moveInstructionsFeedback) is false)
+                        {
+                            Console.WriteLine(moveInstructionsFeedback);
+                            Console.WriteLine("Press 'Enter' to try again");
                             Console.ReadLine();
                             continue;
                         }
                         
-                        lineNumber++;
+                        break;
                     }
                     
                     _plateau.AddRoverPosition(rover.GetCurrentPosition());
@@ -76,12 +95,13 @@ namespace Platform45.MarsRoverChallenge
                     while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine("Enter 'YES' if you have more instructions. Enter 'NO' if you do not");
+                        Console.WriteLine("Moving instructions received. Rover has moved");
+                        Console.WriteLine("Enter 'YES' if you would like to deploy another rover. Enter 'NO' if you do not");
                         var hasMoreInstructionsRaw = Console.ReadLine();
-                    
+
                         if (string.IsNullOrWhiteSpace(hasMoreInstructionsRaw))
                             continue;
-                    
+
                         if (hasMoreInstructionsRaw.ToUpper() == "YES")
                         {
                             hasMoreInstructions = true;
@@ -97,7 +117,8 @@ namespace Platform45.MarsRoverChallenge
                     if (hasMoreInstructions is false)
                         break;
                 }
-                
+
+                Console.Clear();
                 Console.WriteLine("All final positions of all Rovers:");
                 foreach (var stationaryRoverPosition in _plateau.GetStationaryRoverPositions())
                 {
@@ -111,7 +132,7 @@ namespace Platform45.MarsRoverChallenge
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine("All rovers deployed. Thank you for using our program");
+                    Console.WriteLine("All rovers deployed and moved. Thank you for using our program");
                     Console.WriteLine("Enter 'YES' to play again. Enter 'NO' to exit");
                     var playAgainInput = Console.ReadLine();
 
