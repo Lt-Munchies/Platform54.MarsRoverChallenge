@@ -56,10 +56,14 @@ Expected Output:
 
 ### Installation:
 App is a console application
+
 The console application did not make use of the DeviceCommunicator class and does not take in exact structure of the test input
+
 Simply publish solution to the desired location and run the exe file
 
 ### Unit tests
 Unit tests make use of the DeviceCommunicator class
+
 Unit tests are written to take in the exact expected input structure
+
 Refer to unit tests for a more exact examination of expected functionality
