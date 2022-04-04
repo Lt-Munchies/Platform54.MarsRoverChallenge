@@ -54,4 +54,12 @@ Expected Output:
 7. Lines of instructions will always be ordered and come in the correct order namely 1. Rover Position 2. Instructions to move respectively
 8. Nasa can send communication to the rover after it has landed and has not pre-programmed the rover with the set of instructions
 
+### Installation:
+App is a console application
+The console application did not make use of the DeviceCommunicator class and does not take in exact structure of the test input
+Simply publish solution to the desired location and run the exe file
 
+### Unit tests
+Unit tests make use of the DeviceCommunicator class
+Unit tests are written to take in the exact expected input structure
+Refer to unit tests for a more exact examination of expected functionality
