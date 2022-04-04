@@ -47,7 +47,7 @@ namespace Platform45.MarsRoverChallenge
 
                 while (true)
                 {
-                    var rover = new Rover(_plateau);
+                    var rover = new Rover.Rover(_plateau);
 
                     while (true)
                     {

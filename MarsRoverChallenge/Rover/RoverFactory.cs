@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Platform45.MarsRoverChallenge
+﻿namespace Platform45.MarsRoverChallenge.Rover
 {
     public class RoverFactory
     {

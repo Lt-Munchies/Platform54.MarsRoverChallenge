@@ -1,7 +1,5 @@
 ﻿#nullable enable
-using System;
-
-namespace Platform45.MarsRoverChallenge
+namespace Platform45.MarsRoverChallenge.Rover
 {
     public class RoverCommunicator
     {
@@ -36,22 +34,19 @@ namespace Platform45.MarsRoverChallenge
             }
 
             _roverInProgress ??= _roverFactory.DeployRover(_plateau);
-            
+
             if (_roverInProgress.HasLanded is false)
             {
-                var roverLandingPositionFeedback = _roverInProgress.SetRoverLandingPosition(lineInstruction);
-
-                if (string.IsNullOrWhiteSpace(roverLandingPositionFeedback) is false)
-                    return roverLandingPositionFeedback;
-            }
-            else
-            {
-                var moveInstructionsFeedback = _roverInProgress.InterpretRoverMoveInstructions(lineInstruction);
-                
-                if (string.IsNullOrWhiteSpace(moveInstructionsFeedback) is false)
-                    return moveInstructionsFeedback;
+                return _roverInProgress.SetRoverLandingPosition(lineInstruction);
             }
 
+            var moveInstructionsFeedback = _roverInProgress.InterpretRoverMoveInstructions(lineInstruction);
+
+            if (string.IsNullOrWhiteSpace(moveInstructionsFeedback) is false)
+                return moveInstructionsFeedback;
+
+            _plateau.AddRoverPosition(_roverInProgress.GetCurrentPosition());
+            _roverInProgress = null;
             return string.Empty;
         }
     }

@@ -3,7 +3,7 @@ using System.Linq;
 using Platform45.MarsRoverChallenge.Exceptions;
 using Platform45.MarsRoverChallenge.Models;
 
-namespace Platform45.MarsRoverChallenge
+namespace Platform45.MarsRoverChallenge.Rover
 {
     public class Rover
     {
@@ -14,7 +14,11 @@ namespace Platform45.MarsRoverChallenge
 
         #endregion
 
+        #region Properties
+
         public bool HasLanded { get; private set; }
+
+        #endregion
 
         #region Constructor
 
@@ -45,7 +49,7 @@ namespace Platform45.MarsRoverChallenge
 
             return Convert.ToChar(heading.ToUpper());
         }
-        
+
         public string InterpretRoverMoveInstructions(string rawInstructions)
         {
             var instructions = rawInstructions.ToUpper().ToCharArray();
@@ -53,7 +57,7 @@ namespace Platform45.MarsRoverChallenge
             var validCharacters = new[] {'L', 'R', 'M'};
 
             if (instructions.Any(p => char.IsNumber(p) || validCharacters.Contains(p) is false))
-                return "Invalid instructions. Moving instructions may only contain the following: [L, R, M]";
+                return "Invalid instructions. Moving instructions may only contain the following letters and format: [L, R, M]";
 
             foreach (var instruction in instructions)
             {
@@ -106,33 +110,33 @@ namespace Platform45.MarsRoverChallenge
             {
                 case 'N':
                 {
-                    var potentialCoordinate = _roverPosition.Y + 1;
+                    var potentialPositon = $"{_roverPosition.X} {_roverPosition.Y + 1}";
 
-                    if (potentialCoordinate >= 0 && stationaryRovers.Select(p => p.Y).Contains(potentialCoordinate) is false && potentialCoordinate <= _plateau.ThresholdY)
+                    if (stationaryRovers.Select(p => $"{p.X} {p.Y}").Any(p => p == potentialPositon) is false && _roverPosition.Y + 1 <= _plateau.ThresholdY)
                         _roverPosition.Y++;
                     break;
                 }
                 case 'E':
                 {
-                    var potentialCoordinate = _roverPosition.X + 1;
+                    var potentialPositon = $"{_roverPosition.X + 1} {_roverPosition.Y}";
 
-                    if (potentialCoordinate >= 0 && stationaryRovers.Select(p => p.X).Contains(potentialCoordinate) is false && potentialCoordinate <= _plateau.ThresholdX)
+                    if (stationaryRovers.Select(p => $"{p.X} {p.Y}").Any(p => p == potentialPositon) is false && _roverPosition.X + 1 <= _plateau.ThresholdX)
                         _roverPosition.X++;
                     break;
                 }
                 case 'S':
                 {
-                    var potentialCoordinate = _roverPosition.Y - 1;
+                    var potentialPositon = $"{_roverPosition.X} {_roverPosition.Y - 1}";
 
-                    if (potentialCoordinate >= 0 && stationaryRovers.Select(p => p.Y).Contains(potentialCoordinate) is false)
+                    if (_roverPosition.Y - 1 >= 0 && stationaryRovers.Select(p => $"{p.X} {p.Y}").Any(p => p == potentialPositon) is false)
                         _roverPosition.Y--;
                     break;
                 }
                 case 'W':
                 {
-                    var potentialCoordinate = _roverPosition.X - 1;
+                    var potentialPositon = $"{_roverPosition.X - 1} {_roverPosition.Y}";
 
-                    if (potentialCoordinate >= 0 && stationaryRovers.Select(p => p.X).Contains(potentialCoordinate) is false)
+                    if (_roverPosition.X - 1 >= 0 && stationaryRovers.Select(p => $"{p.X} {p.Y}").Any(p => p == potentialPositon) is false)
                         _roverPosition.X--;
                     break;
                 }
